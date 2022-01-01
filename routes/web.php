@@ -25,16 +25,16 @@ Route::get('/order/{order}', function (Request $request, Order $order) {
 
 Route::post('/order', function (Request $request) {
 	$request->validate([
-		'qty_combo' => 'required|min:1|max:9999',
-		'qty_dababy' => 'required|min:1|max:9999',
-		'qty_cheesecake' => 'required|min:1|max:9999',
+		'qty_combo' => 'nullable|min:1|max:9999',
+		'qty_dababy' => 'nullable|min:1|max:9999',
+		'qty_cheesecake' => 'nullable|min:1|max:9999',
 		'cc' => 'required'
 	]);
 
 	$order = Order::create([
-		'qty_combo' => $request->qty_combo,
-		'qty_dababy' => $request->qty_dababy,
-		'qty_cheesecake' => $request->qty_cheesecake,
+		'qty_combo' => $request->qty_combo ?? 0,
+		'qty_dababy' => $request->qty_dababy ?? 0,
+		'qty_cheesecake' => $request->qty_cheesecake ?? 0,
 		'cc' => $request->cc
 	]);
 
