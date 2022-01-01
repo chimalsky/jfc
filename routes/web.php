@@ -19,6 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/orders', function() {
+	$orders = Order::all()->sortByDesc('total');
+
+	return view('orders', compact('orders'));
+});
+
 Route::get('/order/{order}', function (Request $request, Order $order) {
 	return view('order', compact('order'));
 })->name('order.show');
@@ -28,14 +34,16 @@ Route::post('/order', function (Request $request) {
 		'qty_combo' => 'nullable|min:1|max:9999',
 		'qty_dababy' => 'nullable|min:1|max:9999',
 		'qty_cheesecake' => 'nullable|min:1|max:9999',
-		'cc' => 'required'
+		'cc' => 'required',
+		'name' => 'required|min:2|max:255'
 	]);
 
 	$order = Order::create([
 		'qty_combo' => $request->qty_combo ?? 0,
 		'qty_dababy' => $request->qty_dababy ?? 0,
 		'qty_cheesecake' => $request->qty_cheesecake ?? 0,
-		'cc' => $request->cc
+		'cc' => $request->cc,
+		'name' => $request->name
 	]);
 
 	return redirect()->route('order.show', $order);

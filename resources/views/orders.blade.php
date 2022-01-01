@@ -18,44 +18,25 @@
 					Home of the JFC Chicken
 				</span>
 				<a href="/orders">
-					{{ App\Models\Order::count() }} Served!
+					<span class="text-xl block">
+						{{ App\Models\Order::count() }} Customers Served!
+					</span>
 				</a>
 			</h1>
 			<img class="w-48" src="https://c.tenor.com/ZX95mDnlodwAAAAd/the-rock-sus-eye.gif" />
 		</header>
 
 		<main class="text-center text-yellow-500 my-10" x-data="{ordering: false}">
-			<header>
-				Order #{{ $order->id }} <br>
+			<div class="mb-12 font-mono text-xl">
+				Total 💰 earned by JFC Chicken ${{ $orders->sum('total') }}
+			</div>
+			@foreach($orders as $order)
+				<div>
+					{{ $order->name ?? 'Anon'}}
 
-				<span class="text-xl font-bold">
-					Total: ${{$order->total }}
-				</span>
-			</header>
-			<span class="text-xs">
-				This is your Order! Do not share this with anyone!
-			</span>
-
-			<div class='mt-12'>
-				Details:
-			</div>
-
-			<div>
-				{{ $order->qty_combo }} {{ Str::plural('combo', $order->qty_combo) }}
-			</div>
-			<div>
-				{{ $order->qty_dababy }} {{ Str::plural('baby', $order->qty_dababy) }}
-			</div>
-			<div>
-				{{ $order->qty_cheesecake }} {{ Str::plural('cheesecake', $order->qty_dababy) }}
-			</div>
-			<div>
-				Ordered using credit card: {{ $order->cc }}
-			</div>
-
-			<a href="/orders" class="mt-12 block underline border-2 border-white p-2">
-				Tap here to see how your order ranks amongst others!
-			</a>
+					${{ $order->total }} -- {{ $order->qty_combo }} combos, {{ $order->qty_dababy }} Susses, {{ $order->qty_cheesecake }} 🧀🎂
+				</div>
+			@endforeach
 
 			<a href="/" class="border-2 border-white p-4 mt-12 block">
 				Go back to ordering more JFC!

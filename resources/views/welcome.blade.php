@@ -17,9 +17,11 @@
 				<span class="text-2xl block text-yellow-300">
 					Home of the JFC Chicken
 				</span>
-				<span class="text-xl block">
-					{{ App\Models\Order::count() }} Customers Served!
-				</span>
+				<a href="/orders">
+					<span class="text-xl block">
+						{{ App\Models\Order::count() }} Customers Served!
+					</span>
+				</a>
 			</h1>
 			<img class="w-48" src="https://c.tenor.com/ZX95mDnlodwAAAAd/the-rock-sus-eye.gif" />
 		</header>
@@ -51,6 +53,12 @@
 			<div class="max-w-sm mx-auto" x-show="ordering">
 				<form action="/order" method="post">
 					@csrf
+
+					<label class="block my-10">
+						Your Name:
+
+						<input type="text" name="name" class="text-black p-4" />
+					</label>
 			
 					<label class="block my-10">
 						<header class="text-2xl uppercase font-bold">
@@ -81,7 +89,7 @@
 
 					<label class="block my-10">
 						<header class="text-2xl uppercase font-bold">
-							Cheesecake! 
+							Cheesecake! 🧀🎂
 						</header>
 						<div class="">
 							$2.50 a slice
